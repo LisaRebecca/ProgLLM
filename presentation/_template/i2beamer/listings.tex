@@ -1,0 +1,46 @@
+\RequirePackage{listings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LISTINGS STYLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\colorlet{listing string}{green!70!black}
+\definecolor{listing keyword}{HTML}{1F548A}
+\definecolor{listing comment}{HTML}{0098E0}
+
+\lstset{%
+  basicstyle=\ttfamily,%
+  keywordstyle=\color{listing keyword}\bfseries,%
+  stringstyle=\color{listing string},%
+  commentstyle=\color{listing comment},%
+  showstringspaces=false,%
+  literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DEFLISTING / USELISTING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{filecontents}
+
+\newenvironment{deflisting}[1]%
+  {%
+    \def\tempfile{_tmp/lst_#1.txt}%
+    \csname filecontents*\endcsname{\tempfile}%
+  }%
+  {%
+    \csname endfilecontents*\endcsname%
+  }%
+
+\newcommand{\uselisting}[1]%
+  {%
+    \def\tempfile{_tmp/lst_#1.txt}%
+    \lstinputlisting{\tempfile}%
+  }%

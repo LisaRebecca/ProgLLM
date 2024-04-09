@@ -1,0 +1,15 @@
+\frametitle{Code (\texttt{lstlisting})}
+
+  \lstset{language=Java}
+
+  \begin{deflisting}{example}
+public final class Foo {
+  public static void main(final String[] args) {
+    System.out.println("hello, world"); // print "hello, world"
+  }
+}
+  \end{deflisting}
+
+  \begin{exampleblock}{Beispiel}
+    \uselisting{example}
+  \end{exampleblock}

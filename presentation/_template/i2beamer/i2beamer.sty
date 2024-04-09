@@ -1,0 +1,86 @@
+\ProvidesPackage{i2beamer}[2022/03/17 i2beamer]
+
+\newif\ifOptWide\OptWidefalse
+\DeclareOption{wide}{
+  \OptWidetrue
+}
+
+\newif\ifOptEnglish\OptEnglishfalse
+\DeclareOption{english}{
+  \OptEnglishtrue
+}
+
+\newif\ifOptLogo\OptLogofalse
+\DeclareOption{logo}{
+  \OptLogotrue
+}
+
+\newif\ifOptPlain\OptPlainfalse
+\DeclareOption{plain}{
+  \OptPlaintrue
+}
+
+\ProcessOptions\relax
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOGOS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifOptLogo
+  \ifOptEnglish
+    \def\faulettering{_art/fau_text_en.png}
+  \else
+    \def\faulettering{_art/fau_text_de.png}
+  \fi
+
+  \def\logolarge{_art/ps_large.png}
+  \def\logosmall{_art/ps_small.png}
+\else
+  \def\faulettering{}
+  \def\logolarge{}
+  \def\logosmall{}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LANGUAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifOptEnglish
+  \usepackage[english]{babel}
+  \usepackage[]{csquotes}
+
+  \def\PSName{Programming Systems Group}
+\else%
+  \usepackage[ngerman]{babel}
+  \usepackage[german=quotes]{csquotes}
+
+  \def\PSName{Lehrstuhl für Programmiersysteme (Informatik 2)}
+\fi%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% THEME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifOptWide
+  \ifOptPlain
+    \usetheme[lettering=\faulettering, logolarge=\logolarge, logosmall=\logosmall, wide, plain]{fau}
+  \else
+    \usetheme[lettering=\faulettering, logolarge=\logolarge, logosmall=\logosmall, wide]{fau}
+  \fi
+\else
+  \ifOptPlain
+    \usetheme[lettering=\faulettering, logolarge=\logolarge, logosmall=\logosmall, plain]{fau}
+  \else
+    \usetheme[lettering=\faulettering, logolarge=\logolarge, logosmall=\logosmall]{fau}
+  \fi
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ADDITIONAL DEFINITIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{layout.tex}
+\input{style.tex}
+\input{listings.tex}
+\input{tikz.tex}
+\input{misc.tex}

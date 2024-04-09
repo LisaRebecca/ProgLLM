@@ -1,0 +1,421 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SPECIAL SLIDES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\FAUTITLEPAGE{%
+  \setlength{\unitlength}{1mm}
+  %
+  \begin{tikzpicture}[%
+      x=\unitlength,%
+      y=\unitlength,%
+      outer sep=0,%
+      inner sep=0,%
+      remember picture, overlay,%
+      shift={(current page.south west)},%
+    ]
+    %
+    \fill[color=title background] (0,0) rectangle (\the\paperwidth,\the\paperheight+10mm);
+    %
+    \ifOptPlain\else
+      % use (more or less) the same (somewhat strange) crop of the title background image as in the
+      % original PPT file
+      \ifOptWide
+        \node[anchor=south west] at (0,0)
+          {\includegraphics[width=\the\paperwidth, trim={0mm 22.6mm 0mm 22.6mm}, clip]{_art/title_background}};
+      \else
+        \node[anchor=south west] at (0,0)
+          {\includegraphics[width=\the\paperwidth, trim={0mm 0mm 68.0mm 33.2mm}, clip]{_art/title_background}};
+      \fi
+      %
+      % faded color gradient over title background...
+      \tikzfading[name=background fade, top color=transparent!0, bottom color=transparent!90]
+      %
+      \fill[title background, path fading=background fade]
+        (0,0) rectangle (\the\paperwidth+2mm,\the\paperheight-33.2mm);
+    \fi
+    %
+    % horizontal bar
+    \coordinate (b1) at (\the\marginleft-0.4mm,\the\paperheight-33.2mm);
+    \draw[line width=2mm, draw=title bar] (b1) to (b1 -| current page.north east);
+    %
+    \ifx\OptLogoLarge\empty
+      % FAU logo
+      \node[anchor=north east] (fau logo) at (\the\paperwidth-\the\marginright,\the\paperheight-8mm)
+        {\pgfuseimage{fau_large}};
+      %
+      % text
+      \node[anchor=north west] (fau logo) at (\the\marginleft,\the\paperheight-8mm)
+        {\pgfuseimage{fau_text}};
+    \else
+      % FAU logo
+      \node[anchor=north west] (fau logo) at (\the\marginleft,\the\paperheight-8mm)
+        {\pgfuseimage{fau_large}};
+      %
+      % text
+      \path let \p1 = (fau logo.north east) in
+        node[anchor=north west] (fau text) at (\x1+4mm,\the\paperheight-8mm)
+          {\pgfuseimage{fau_text}};
+      %
+      % logo
+      \node[anchor=north east] at (\the\paperwidth-\the\marginright,\the\paperheight-8.1mm)
+        {\pgfuseimage{logo_large}};
+    \fi
+  \end{tikzpicture}
+}
+
+\setbeamertemplate{title page}{%
+  \FAUTITLEPAGE
+  %
+  \setlength{\unitlength}{1mm}
+  %
+  \begin{tikzpicture}[%
+      x=\unitlength,%
+      y=\unitlength,%
+      outer sep=0,%
+      inner sep=0,%
+      remember picture, overlay,%
+      shift={(current page.south west)},%
+    ]
+    %
+    % title
+    \node[anchor=south west, align=left] (title) at (\the\marginleft,\the\paperheight-104.0mm)
+      {%
+        \usebeamercolor[fg]{title}
+        \usebeamerfont{title}{\raggedright\inserttitle\par}\vphantom{Äg}
+        %
+        \ifx\insertsubtitle\empty\else
+          \\[0.2ex]
+          \usebeamercolor[fg]{subtitle}
+          \usebeamerfont{subtitle}{\raggedright\insertsubtitle\par}\vphantom{Äg}
+        \fi
+      };
+    %
+    % this is a little hack to make everything work even if something contains a line break...
+    \usebeamercolor{info}
+    \definecolor{INFOCOLOR}{named}{fg}
+    %
+    % info
+    \node[%
+      anchor=north west, align=left,%
+      font=\usebeamerfont{info}, color=INFOCOLOR] at ($(title.south west)+(0,-6.6ex)$)
+      {%
+        \ifx\insertauthor\empty\else%
+          \insertauthor%
+          \\[1.0ex]%
+        \fi%
+        %
+        \ifx\insertinstitute\empty\else%
+          \insertinstitute%
+          \\[1.0ex]%
+        \fi
+        %
+        \ifx\insertdate\empty\else%
+          \insertdate%
+          \\[1.0ex]%
+        \fi%
+      };
+  \end{tikzpicture}
+}
+
+\providecommand{\finalframe}[1]{%
+  \begin{frame}[plain]
+    \FAUTITLEPAGE
+    %
+    \setlength{\unitlength}{1mm}
+    %
+    \begin{tikzpicture}[%
+        x=\unitlength,%
+        y=\unitlength,%
+        outer sep=0,%
+        inner sep=0,%
+        remember picture, overlay,%
+        shift={(current page.south west)},%
+      ]
+      %
+      % this is a little hack to make everything work even if the message contains a line break...
+      \usebeamercolor{title}
+      \definecolor{TITLECOLOR}{named}{fg}
+      %
+      % message
+      \node[%
+        anchor=south west, align=left,%
+        font=\usebeamerfont{title}, text=TITLECOLOR]at (\the\marginleft,\the\paperheight-108.0mm)
+        {%
+          #1
+        };
+    \end{tikzpicture}
+  \end{frame}
+}
+
+\AtBeginSection{%
+  \begin{frame}[plain]
+    \setlength{\unitlength}{1mm}
+    %
+    \begin{tikzpicture}[%
+        x=\unitlength,%
+        y=\unitlength,%
+        outer sep=0,%
+        inner sep=0,%
+        remember picture, overlay,%
+        shift={(current page.south west)},%
+      ]
+      %
+      \fill[color=title background] (0,0) rectangle (\the\paperwidth,\the\paperheight);
+      %
+      % horizontal bar top
+      \coordinate (b1) at (\the\marginleft-0.4mm,\the\paperheight-33.2mm);
+      \draw[line width=2mm, draw=title bar] (b1) to (b1 -| current page.north east);
+      %
+      % horizontal bar bottom
+      \coordinate (b1) at (\the\marginleft-0.4mm,8.9mm);
+      \draw[line width=0.5mm, draw=title bar] (b1) to (b1 -| current page.north east);
+      %
+      \ifx\OptLogoLarge\empty
+        % FAU logo
+        \node[anchor=north east] (fau logo) at (\the\paperwidth-\the\marginright,\the\paperheight-8mm)
+          {\pgfuseimage{fau_large}};
+        %
+        % text
+        \node[anchor=north west] (fau logo) at (\the\marginleft,\the\paperheight-8mm)
+          {\pgfuseimage{fau_text}};
+      \else
+        % FAU logo
+        \node[anchor=north west] (fau logo) at (\the\marginleft,\the\paperheight-8mm)
+          {\pgfuseimage{fau_large}};
+        %
+        % text
+        \path let \p1 = (fau logo.north east) in
+          node[anchor=north west] (fau text) at (\x1+4mm,\the\paperheight-8mm)
+            {\pgfuseimage{fau_text}};
+        %
+        % logo
+        \node[anchor=north east] at (\the\paperwidth-\the\marginright,\the\paperheight-8.1mm)
+          {\pgfuseimage{logo_large}};
+      \fi
+      %
+      % title
+      \node[anchor=south west, align=left] (title) at (\the\marginleft,\the\paperheight-104.0mm)
+        {%
+          \usebeamercolor[fg]{title}
+          \usebeamerfont{title}{\raggedright\insertsection\par}
+        };
+      %
+      % footer
+      \node[anchor=east, align=left] at (\the\paperwidth-\the\marginright,4.45mm)
+        {%
+          \usebeamercolor[fg]{title} % sic!
+          \usebeamerfont{footer}{%
+            %
+            \ifx\insertdate\empty\else%
+              ~\insertshortdate\quad\quad\quad%
+            \fi%
+            %
+            \insertframenumber~/~\inserttotalframenumber
+          }
+        };
+    \end{tikzpicture}
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LISTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{enumitem}
+
+\setlist[enumerate]{%
+  label=\arabic*.,%
+  font=\usebeamerfont*{enumerate item}\usebeamercolor[fg]{enumerate item},%
+}
+
+\setbeamertemplate{itemize item}{\Large\raise2.0pt\hbox{\textbullet}}
+\setbeamertemplate{itemize subitem}{\Large\raise1.3pt\hbox{\textbullet}}
+\setbeamertemplate{itemize subsubitem}{\Large\raise1.1pt\hbox{\textbullet}}
+
+\setitemize{%
+  label=\usebeamerfont*{itemize item}\usebeamercolor[fg]{itemize item}\usebeamertemplate{itemize item}
+}
+
+\setitemize[1]{itemsep=0.500ex, labelsep=1.4ex, leftmargin=2.6ex}
+\setitemize[2]{itemsep=0.500ex, labelsep=1.4ex, leftmargin=2.6ex}
+\setitemize[3]{itemsep=0.500ex, labelsep=1.4ex, leftmargin=2.6ex}
+\setitemize[4]{itemsep=0.500ex, labelsep=1.4ex, leftmargin=2.6ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TABLE OF CONTENTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% spacing between sections in TOC
+\makeatletter
+\patchcmd{\beamer@sectionintoc}
+{\vfill}
+{\vskip 1.15em}
+{}
+{}
+\makeatother
+
+\setbeamertemplate{section in toc}{%
+  \usebeamerfont*{section in toc}%
+  %
+  {
+    \color{section number in toc}
+    \textbf{\ifnum\inserttocsectionnumber<10 0\fi\inserttocsectionnumber}%
+  }
+  %
+  {
+    \usebeamercolor{section in toc}
+    \inserttocsection
+  }
+}
+
+\setbeamertemplate{subsection in toc}{%
+  \usebeamerfont*{subsection in toc}%
+  \usebeamercolor{subsection in toc}%
+  \hskip2.1em\inserttocsubsection\par
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BLOCK ENVIRONMENTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[skins]{tcolorbox}
+
+\renewenvironment{block}[1]
+  {
+    \ifstrempty{#1}%
+    {%
+      \pgfkeys{tcb/block title/.code={}}
+    }%
+    {%
+      \pgfkeys{tcb/block title/.code={\pgfkeysalso{adjusted title={#1\vphantom{Aq}}}}}
+    }%
+    \begin{tcolorbox}[%
+        % general
+        enhanced, block title,%
+        % font
+        fonttitle=\usebeamerfont{block title}, fontupper=\usebeamerfont{normal text},%
+        % style
+        title filled, colframe=block, colbacktitle=block,%
+        coltitle=white, colback=block!5, coltext=black, boxrule=0.75pt, arc=0pt,%
+        % layout
+        boxsep=2.2pt, left=4pt, right=4pt, top=4pt, bottom=4pt, oversize=-12pt,%
+        before skip=8pt, after skip=8pt,%
+        % shadow
+        fuzzy shadow={0.5pt}{-2pt}{1pt}{1pt}{black!80},%
+      ]
+  }
+  {
+    \end{tcolorbox}
+  }
+
+\renewenvironment{exampleblock}[1]
+  {
+    \ifstrempty{#1}%
+    {%
+      \pgfkeys{tcb/block title/.code={}}
+    }%
+    {%
+      \pgfkeys{tcb/block title/.code={\pgfkeysalso{adjusted title={#1\vphantom{Aq}}}}}
+    }%
+    \begin{tcolorbox}[%
+        % general
+        enhanced, block title,%
+        % font
+        fonttitle=\usebeamerfont{block title}, fontupper=\usebeamerfont{normal text},%
+        % style
+        title filled, colframe=exampleblock, colbacktitle=exampleblock,%
+        coltitle=white, colback=exampleblock!5, coltext=black, boxrule=0.75pt, arc=0pt,%
+        % layout
+        boxsep=2.2pt, left=4pt, right=4pt, top=4pt, bottom=4pt, oversize=-12pt,%
+        before skip=8pt, after skip=8pt,%
+        % shadow
+        fuzzy shadow={0.5pt}{-2pt}{1pt}{1pt}{black!80},%
+      ]
+  }
+  {
+    \end{tcolorbox}
+  }
+
+\renewenvironment{alertblock}[1]
+  {
+    \ifstrempty{#1}%
+    {%
+      \pgfkeys{tcb/block title/.code={}}
+    }%
+    {%
+      \pgfkeys{tcb/block title/.code={\pgfkeysalso{adjusted title={#1\vphantom{Aq}}}}}
+    }%
+    \begin{tcolorbox}[%
+        % general
+        enhanced, block title,%
+        % font
+        fonttitle=\usebeamerfont{block title}, fontupper=\usebeamerfont{normal text},%
+        % style
+        title filled, colframe=alertblock, colbacktitle=alertblock,%
+        coltitle=white, colback=alertblock!5, coltext=black, boxrule=0.75pt, arc=0pt,%
+        % layout
+        boxsep=2.2pt, left=4pt, right=4pt, top=4pt, bottom=4pt, oversize=-12pt,%
+        before skip=8pt, after skip=8pt,%
+        % shadow
+        fuzzy shadow={0.5pt}{-2pt}{1pt}{1pt}{black!80},%
+      ]
+  }
+  {
+    \end{tcolorbox}
+  }
+
+\newenvironment{hintblock}[1]
+  {
+    \ifstrempty{#1}%
+    {%
+      \pgfkeys{tcb/block title/.code={}}
+    }%
+    {%
+      \pgfkeys{tcb/block title/.code={\pgfkeysalso{adjusted title={#1\vphantom{Aq}}}}}
+    }%
+    \begin{tcolorbox}[%
+        % general
+        enhanced, block title,%
+        % font
+        fonttitle=\usebeamerfont{block title}, fontupper=\usebeamerfont{normal text},%
+        % style
+        title filled, colframe=hintblock, colbacktitle=hintblock,%
+        coltitle=white, colback=hintblock!5, coltext=black, boxrule=0.75pt, arc=0pt,%
+        % layout
+        boxsep=2.2pt, left=4pt, right=4pt, top=4pt, bottom=4pt, oversize=-12pt,%
+        before skip=8pt, after skip=8pt,%
+        % shadow
+        fuzzy shadow={0.5pt}{-2pt}{1pt}{1pt}{black!80},%
+      ]
+  }
+  {
+    \end{tcolorbox}
+  }
+
+\newenvironment{codeblock}[1]
+  {
+    \ifstrempty{#1}%
+    {%
+      \pgfkeys{tcb/block title/.code={}}
+    }%
+    {%
+      \pgfkeys{tcb/block title/.code={\pgfkeysalso{adjusted title={#1\vphantom{Aq}}}}}
+    }%
+    \begin{tcolorbox}[%
+        % general
+        enhanced, block title,%
+        % font
+        fonttitle=\usebeamerfont{block title}, fontupper=\usebeamerfont{normal text},%
+        % style
+        title filled, colframe=codeblock, colbacktitle=codeblock,%
+        coltitle=white, colback=black!90, coltext=white, boxrule=0.75pt, arc=0pt,%
+        % layout
+        boxsep=2.2pt, left=4pt, right=4pt, top=4pt, bottom=4pt, oversize=-12pt,%
+        before skip=8pt, after skip=8pt,%
+        % shadow
+        fuzzy shadow={0.5pt}{-2pt}{1pt}{1pt}{black!80},%
+      ]
+  }
+  {
+    \end{tcolorbox}
+  }

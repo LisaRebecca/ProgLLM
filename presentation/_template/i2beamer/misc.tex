@@ -1,0 +1,61 @@
+\RequirePackage{relsize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LITERATURE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Literature}[1]{%
+  \Vfill{}%
+  \par\noindent\textcolor{black!25}{\rule{\textwidth}{1.0pt}}\\[1.0ex]%
+  %
+  \adjustbox{valign=c}{%
+    \begin{minipage}[c]{\dimexpr(2.2cm)\relax}%
+      \def\w{1.6cm}
+      \def\h{2.0cm}
+      %
+      \def\cw{0.3cm}
+      %
+      \begin{tikzpicture}
+        \tikzset{%
+          file line/.style={%
+            line width=1.2pt, line cap=round, line join=round,%
+            rounded corners=2.4pt, draw=black!60,%
+          },%
+        }
+        %
+        \coordinate (sw) at (0,0);
+        \coordinate (se) at ($(sw)+(\w,0)$);
+        \coordinate (nw) at ($(sw)+(0,\h)$);
+        \coordinate (ne) at (nw-|se);
+        %
+        \coordinate (ne1) at ($(ne)+(-\cw,0)$);
+        \coordinate (ne2) at ($(ne)+(0,-\cw)$);
+        %
+        \filldraw[file line, fill=black!2] (sw) -- (se) -- (ne2) -- (ne1) -- (nw) -- cycle;
+        \draw[file line] ($(ne2)+(-0.4pt,-1.6pt)$) -| ($(ne1)+(-1.6pt,-0.4pt)$);
+        %
+        \tikzstyle{line}=[%
+          line width=2.0pt, line cap=round, line join=round, draw=black!20,%
+        ]
+        %
+        \coordinate (h1) at ($(nw)!0.3!(sw)$);
+        \coordinate (h2) at ($(nw)!0.8!(sw)$);
+        %
+        \foreach \i in {0,...,4}{%
+          \coordinate (h3) at ($(h1)!\i*0.25!(h2)$);
+          \draw[line, shorten >=0.2cm, shorten <=0.2cm] (h3) to (h3 -| ne);
+        }
+      \end{tikzpicture}
+    \end{minipage}%
+  }%
+  %
+  \hfill%
+  %
+  \adjustbox{valign=c}{%
+    \begin{minipage}[c]{\dimexpr(\linewidth-2.2cm)\relax}%
+      \relsize{-1.0}{\textcolor{black!65}{%
+        #1
+      }}
+    \end{minipage}%
+  }%
+}

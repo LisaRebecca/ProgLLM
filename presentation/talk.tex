@@ -1,0 +1,103 @@
+\documentclass[t]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% STYLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% the possible options for the 'i2beamer' package are:
+% - 'english' (if the slides are in english) 
+% - 'wide'    (if the slides should use a 16:9 aspect ratio)
+% - 'logo'    (if the logo of the Programming Systems Group should be included)
+% - 'plain'   (if the background image of the title page should be omitted)
+\usepackage[wide]{i2beamer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PACKAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{lipsum} % just for testing
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% INFO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{ProgLLM}
+\subtitle{Status Report}
+
+\author{Lisa Rebecca Schmidt}
+\institute[\PSName{}]{Friedrich-Alexander-Universität Erlangen-Nürnberg}
+
+\date[Datum]{9. Feb. 2024}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{frame}[plain,c]
+  \titlepage
+\end{frame}
+
+
+% \begin{frame}
+%   \frametitle{Agenda}
+
+%   \tableofcontents
+% \end{frame}
+
+
+\begin{frame}
+  \frametitle{Problems Encountered}
+  \framesubtitle{ }
+
+  \begin{itemize}
+    \item Obsolete libraries/APIs/dependencies
+    \begin{itemize}
+        \item remedy: ask for the version!
+        \item very annoying: it even had old versions of the openai apis...
+    \end{itemize}
+    \item "This task would require a team of developers ..." / "This task is highly complex ..." / "I can provide a basic implementation which needs to be extended"
+    \begin{itemize}
+        \item remedy: Prompt: "You are a team of experienced [XYZ-] engineers".
+    \end{itemize}
+    \item Systems design can be overwhelming, as it will present many different technologies which you may not yet know.
+    \item Configurations are always the same! Especially when you design microservices, it will always use the same ports.
+    \item The interfaces which are built are not actually used! -> you have to know how apis/sockets/etc work
+  \end{itemize}
+
+
+\end{frame}
+
+\subsection{Fließtext}
+
+\begin{frame}
+  \frametitle{Insights}
+  \begin{itemize}
+    \item It still makes sense to learn new technologies
+    \begin{itemize}
+        \item If you already know the technologies, it will speed you up even more.
+        \item You will have a much easier time debugging.
+        \item You know 'best' practices.
+        \item You know what you are doing ;)
+        \item I failed miserably when I trusted GPT-4 to use React (I don't know React).
+    \end{itemize}
+    \item LLMS can speed up coding significantly.
+    \item The LLM can actually handle simple systems-architecture problems.
+    \item You are very much forced to build decoupled and modular code (which is good) because the LLM will have "forgotten" your specs.
+    \begin{itemize}
+        \item Bonus: Let the LLM generate interface specs, these you can then put in the prompt if you need a specific module.
+    \end{itemize}
+    \item You are also very much forced to use Infrastructure-as-Code and templates, because LLMS can only generate text.
+    \item You will lose a lot of time if you switch back and forth between Google/Stack Overflow and your LLM - stick to one!
+\end{itemize}
+
+  
+\end{frame}
+
+
+
+\end{document}

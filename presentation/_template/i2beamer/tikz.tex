@@ -1,0 +1,55 @@
+\RequirePackage{tikz}
+
+\usetikzlibrary{%
+  positioning, calc, fit, backgrounds, shadows,%
+  arrows.meta,%
+  shapes, shapes.geometric, shapes.callouts, shapes.misc,%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ANIMATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tikzset{%
+  onslide/.code args={<#1>#2}{%
+    \only<#1>{\pgfkeysalso{#2}}
+  },%
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}
+  },
+}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MARKER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\tikzmark[1]{\tikz[remember picture, overlay] \node[anchor=south] (#1) {};}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CALLOUTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tikzstyle{rect callout}=[%
+  rectangle callout,%
+  scale=0.8,%
+  anchor=south,%
+  align=center,%
+  line width=1.5pt, draw=black, fill=yellow!15, inner xsep=0.8ex, inner ysep=0.8ex,%
+  drop shadow={shadow xshift=0.2ex, shadow yshift=-0.2ex, color=black, opacity=0.5},%
+]
+
+\tikzstyle{thought bubble}=[%
+  cloud callout, cloud ignores aspect, cloud puffs=18.3, cloud puff arc=120,%
+  line width=1.5pt, draw=black, fill=yellow!15, inner xsep=0.2ex, inner ysep=0.4ex,%
+  scale=0.8,%
+  anchor=south,%
+  align=center,%
+  drop shadow={shadow xshift=0.2ex, shadow yshift=-0.2ex, color=black!70},%
+]
+
+\tikzset{callout pos/.code args={(#1)(#2,#3)(#4,#5)}{%
+  \pgfkeysalso{%
+    callout absolute pointer={($(#1)+(#2,#3)$)},%
+    at={($(#1)+(#2,#3)+(#4,#5)$)},%
+  }%
+}}%

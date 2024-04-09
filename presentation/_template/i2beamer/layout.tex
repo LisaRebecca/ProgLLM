@@ -1,0 +1,88 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SPACING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\providecommand{\spc}{\vspace*{0.4cm}}
+\providecommand{\smspc}{\vspace*{0.25cm}}
+\providecommand{\tspc}{\vspace*{0.10cm}}
+\providecommand{\Vfill}{\vskip0pt plus 1filll}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MULTI-COLUMN LAYOUTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{adjustbox}
+
+\providecommand{\TWOCOLUMNS}[5]%
+{%
+  \vspace*{0.07cm}
+  \adjustbox{valign=#3}{%
+    \begin{minipage}[#3]{\dimexpr(#1\linewidth-\columnsep*3/4)\relax}%
+      #4
+    \end{minipage}%
+  }%
+  \hfill%
+  \adjustbox{valign=#3}{%
+    \begin{minipage}[#3]{\dimexpr(#2\linewidth-\columnsep*3/4)\relax}%
+      #5
+    \end{minipage}%
+  }%
+}%
+
+\providecommand{\twocolumns}[2]%
+{%
+  \TWOCOLUMNS{0.5}{0.5}{t}{#1}{#2}
+}%
+
+\providecommand{\twocolumnsC}[2]%
+{%
+  \TWOCOLUMNS{0.5}{0.5}{c}{#1}{#2}
+}%
+
+\providecommand{\twocolumnsP}[4]%
+{%
+  \TWOCOLUMNS{#1}{#2}{t}{#3}{#4}
+}%
+
+\providecommand{\twocolumnsCP}[4]%
+{%
+  \TWOCOLUMNS{#1}{#2}{c}{#3}{#4}
+}%
+
+\providecommand{\threecolumns}[3]%
+{%
+  \vspace*{0.07cm}
+  \adjustbox{valign=t}{%
+    \begin{minipage}[t]{\dimexpr(\linewidth-\columnsep)/3\relax}%
+      #1
+    \end{minipage}%
+  }%
+  \hfill%
+  \adjustbox{valign=t}{%
+    \begin{minipage}[t]{\dimexpr(\linewidth-\columnsep)/3\relax}%
+      #2
+    \end{minipage}%
+  }%
+  \hfill%
+  \adjustbox{valign=t}{%
+    \begin{minipage}[t]{\dimexpr(\linewidth-\columnsep)/3\relax}%
+      #3
+    \end{minipage}%
+  }%
+}%
+
+\providecommand{\twocolumnssep}[2]%
+{%
+  \vspace*{0.03cm}
+  \adjustbox{valign=t}{%
+    \begin{minipage}[t]{\dimexpr(\linewidth)/2-\columnsep\relax}%
+      #1
+    \end{minipage}%
+  }%
+  \hfill {\vrule width 1.0pt} \hfill%
+  \adjustbox{valign=t}{%
+    \begin{minipage}[t]{\dimexpr(\linewidth)/2-\columnsep\relax}%
+      #2
+    \end{minipage}%
+  }%
+}%
