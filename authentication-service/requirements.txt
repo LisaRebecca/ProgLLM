@@ -1,0 +1,4 @@
+Flask
+PyJWT
+Flask-HTTPAuth
+psycopg2-binary
