@@ -53,6 +53,7 @@ tool_extract_question = [
 ]
 
 def get_question_from_text(text):
+    print("called")
     chat_completion = client.chat.completions.create(
         messages = [
             {

@@ -1,2 +1,3 @@
 Flask
 minio
+pyjwt==1.7.1

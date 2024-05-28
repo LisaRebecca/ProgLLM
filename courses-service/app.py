@@ -56,6 +56,29 @@ def get_course(course_id):
     else:
         return jsonify({'message': 'Course not found'}), 404
     
+@app.route('/courses/<int:course_id>', methods=['DELETE'])
+def delete_course(course_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    # First, check if the course exists in the database
+    cur.execute("SELECT * FROM Courses WHERE CourseID = %s;", (course_id,))
+    course = cur.fetchone()
+    if course is None:
+        cur.close()
+        conn.close()
+        return jsonify(404, description="Course not found")  # Return 404 if the course does not exist
+
+    # If the course exists, proceed to delete it
+    cur.execute("DELETE FROM Flashcards WHERE CourseID = %s;", (course_id,))
+    cur.execute("DELETE FROM Courses WHERE CourseID = %s;", (course_id,))
+    conn.commit()
+    
+    cur.close()
+    conn.close()
+
+    return jsonify({"message": f"Course id={course_id}deleted successfully"}), 200
+    
 @app.route('/courses/<int:course_id>/flashcards', methods=['GET'])
 def get_flashcards_for_course(course_id):
     conn = get_db_connection()

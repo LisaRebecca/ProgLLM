@@ -1,1 +1,1 @@
-docker run -p 34567:34567 -e OPENAI_API_KEY=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 file-processing-service-mock
+docker run -p 34567:34567 -e OPENAI_API_KEY=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 file-processing-service

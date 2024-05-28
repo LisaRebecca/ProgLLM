@@ -1,1 +1,1 @@
-docker build -t file-processing-service-mock .
+docker build -t file-processing-service .
